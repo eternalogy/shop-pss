@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vin.pss.provider.dao.StockModifyRecordDao">
+  <resultMap id="BaseResultMap" type="com.vin.pss.provider.model.StockModifyRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_bar_code" jdbcType="VARCHAR" property="productBarCode" />
+    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="modify_count" jdbcType="INTEGER" property="modifyCount" />
+    <result column="modify_type" jdbcType="VARCHAR" property="modifyType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <collection property="products" ofType="com.vin.pss.provider.model.Product">
+      <id column="id" property="id"/>
+      <result column="bar_code" property="barCode"/>
+      <result column="product_name" property="productName"/>
+    </collection>
+    <collection property="categories" ofType="com.vin.pss.provider.model.Category">
+      <id column="id" property="id"/>
+      <result column="category_name" property="categoryName"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product_bar_code, operator_id, modify_count, modify_type, create_time, update_time,
+    deleted
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from biz_stock_modify_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+      p.bar_code,
+      c.category_name,
+      p.product_name,
+      s.modify_count,
+      s.modify_type,
+      s.create_time
+  FROM
+      biz_product p,
+      biz_category c,
+      biz_stock_modify_record s
+  WHERE
+      p.category_id = c.id
+  AND s.product_bar_code = p.bar_code
+  AND p.deleted = 0
+  AND c.deleted = 0
+  AND s.deleted = 0
+    </select>
+  <select id="selectByProductName" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+	p.bar_code,
+	c.category_name,
+	p.product_name,
+	s.modify_count,
+	s.modify_type,
+	s.create_time
+FROM
+	biz_product p,
+	biz_category c,
+	biz_stock_modify_record s
+WHERE
+	p.category_id = c.id
+AND s.product_bar_code = p.bar_code
+AND p.deleted = 0
+AND c.deleted = 0
+AND s.deleted = 0
+AND p.product_name LIKE concat('%',#{productName},'%')
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from biz_stock_modify_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.vin.pss.provider.model.StockModifyRecord" useGeneratedKeys="true">
+    insert into biz_stock_modify_record (product_bar_code, operator_id, modify_count,
+      modify_type, create_time, update_time,
+      deleted)
+    values (#{productBarCode,jdbcType=VARCHAR}, #{operatorId}, #{modifyCount,jdbcType=INTEGER},
+      #{modifyType,jdbcType=VARCHAR}, now(), now(),
+      0)
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.vin.pss.provider.model.StockModifyRecord" useGeneratedKeys="true">
+    insert into biz_stock_modify_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productBarCode != null">
+        product_bar_code,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="modifyCount != null">
+        modify_count,
+      </if>
+      <if test="modifyType != null">
+        modify_type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productBarCode != null">
+        #{productBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyCount != null">
+        #{modifyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifyType != null">
+        #{modifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vin.pss.provider.model.StockModifyRecord">
+    update biz_stock_modify_record
+    <set>
+      <if test="productBarCode != null">
+        product_bar_code = #{productBarCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorId != null">
+        operator_id = #{operatorId,jdbcType=INTEGER},
+      </if>
+      <if test="modifyCount != null">
+        modify_count = #{modifyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifyType != null">
+        modify_type = #{modifyType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vin.pss.provider.model.StockModifyRecord">
+    update biz_stock_modify_record
+    set product_bar_code = #{productBarCode,jdbcType=VARCHAR},
+      operator_id = #{operatorId,jdbcType=INTEGER},
+      modify_count = #{modifyCount,jdbcType=INTEGER},
+      modify_type = #{modifyType,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

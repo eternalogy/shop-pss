@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vin.pss.provider.dao.StockDao">
+    <resultMap id="BaseResultMap" type="com.vin.pss.provider.model.Stock">
+        <id column="product_bar_code" jdbcType="VARCHAR" property="productBarCode"/>
+        <result column="stock_count" jdbcType="INTEGER" property="stockCount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="lock_key" jdbcType="VARCHAR" property="lockKey"/>
+        <collection property="categories" ofType="com.vin.pss.provider.model.Category">
+            <id column="id" property="id"/>
+            <result column="category_name" property="categoryName"/>
+        </collection>
+        <collection property="products" ofType="com.vin.pss.provider.model.Product">
+            <id column="id" property="id"/>
+            <result column="bar_code" property="barCode"/>
+            <result column="product_name" property="productName"/>
+        </collection>
+        <collection property="suppliers" ofType="com.vin.pss.provider.model.Supplier">
+            <id column="id" property="id"/>
+            <result column="supplier_name" property="supplierName"/>
+            <result column="contacts_name" property="contactsName"/>
+            <result column="tel" property="tel"/>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+    product_bar_code, stock_count, create_time, update_time, deleted, lock_key
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from biz_stock
+        where product_bar_code = #{productBarCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+	p.bar_code,
+	c.category_name,
+	p.product_name,
+	stock.stock_count,
+	supplier.supplier_name,
+	supplier.contacts_name,
+	supplier.tel
+FROM
+	biz_stock stock,
+	biz_product p,
+	biz_category c,
+	biz_supplier supplier
+WHERE
+	p.category_id = c.id
+AND p.supplier_id = supplier.id
+AND p.bar_code = stock.product_bar_code
+AND stock.deleted = 0
+AND p.deleted = 0
+AND c.deleted = 0
+AND supplier.deleted = 0
+    </select>
+    <select id="selectByProductName" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+	p.bar_code,
+	c.category_name,
+	p.product_name,
+	stock.stock_count,
+	supplier.supplier_name,
+	supplier.contacts_name,
+	supplier.tel
+FROM
+	biz_stock stock,
+	biz_product p,
+	biz_category c,
+	biz_supplier supplier
+WHERE
+	p.category_id = c.id
+AND p.supplier_id = supplier.id
+AND p.bar_code = stock.product_bar_code
+AND stock.deleted = 0
+AND p.deleted = 0
+AND c.deleted = 0
+AND supplier.deleted = 0
+AND p.product_name LIKE concat('%',#{productName},'%')
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from biz_stock
+    where product_bar_code = #{productBarCode,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" keyColumn="product_bar_code" keyProperty="productBarCode"
+            parameterType="com.vin.pss.provider.model.Stock">
+    insert into biz_stock (product_bar_code, stock_count, create_time, update_time,
+      deleted, lock_key)
+    values (#{productBarCode}, #{stockCount,jdbcType=INTEGER}, now(), now(),
+      0, 1)
+  </insert>
+    <insert id="insertSelective" keyColumn="product_bar_code" keyProperty="productBarCode"
+            parameterType="com.vin.pss.provider.model.Stock" useGeneratedKeys="true">
+        insert into biz_stock
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stockCount != null">
+                stock_count,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="lockKey != null">
+                lock_key,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stockCount != null">
+                #{stockCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BIT},
+            </if>
+            <if test="lockKey != null">
+                #{lockKey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.vin.pss.provider.model.Stock">
+        update biz_stock
+        <set>
+            <if test="stockCount != null">
+                stock_count = #{stockCount,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="lockKey != null">
+                lock_key = #{lockKey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where product_bar_code = #{productBarCode,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.vin.pss.provider.model.Stock">
+    update biz_stock
+    set stock_count = #{stockCount,jdbcType=INTEGER},
+      update_time = now(),
+      lock_key = 1
+    where product_bar_code = #{productBarCode,jdbcType=VARCHAR}
+  </update>
+</mapper>
