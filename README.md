@@ -1,2 +1,2 @@
 # shop-pss
-基于Spring boot+Spring Security+Mybatis Plus+Thymeleaf的超市进销存系统
+基于Spring boot+Dubbo+Spring Security+Mybatis的进销存系统
