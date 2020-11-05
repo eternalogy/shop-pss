@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 品类Service实现类
  * @Author Vincent Chiu
  * @Date 2020-10-21 14:05
  */

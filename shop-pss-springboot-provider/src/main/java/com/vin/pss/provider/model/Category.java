@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * biz_category
- * @author
+ * @author Vincent Chiu
  */
 @Data
 public class Category implements Serializable {

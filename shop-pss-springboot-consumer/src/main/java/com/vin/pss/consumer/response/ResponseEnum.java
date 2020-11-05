@@ -3,7 +3,7 @@ package com.vin.pss.consumer.response;
 import lombok.Getter;
 
 /**
- * @Description 遵循阿里规范
+ * @Description 接口返回值枚举类，遵循阿里规范
  * @Author Vincent Chiu
  * @Date 2020-10-28 15:02
  */

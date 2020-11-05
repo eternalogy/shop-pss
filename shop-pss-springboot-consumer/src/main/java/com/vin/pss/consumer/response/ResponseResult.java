@@ -3,7 +3,7 @@ package com.vin.pss.consumer.response;
 import lombok.Data;
 
 /**
- * @Description TODO
+ * @Description 接口统一返回结果集
  * @Author Vincent Chiu
  * @Date 2020-10-28 15:03
  */

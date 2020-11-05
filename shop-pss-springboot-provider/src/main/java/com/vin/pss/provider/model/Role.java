@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * sys_role
- * @author 
+ * @author Vincent Chiu
  */
 @Data
 public class Role implements Serializable {

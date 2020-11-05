@@ -7,7 +7,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @Description TODO
+ * @Description Spring MVC配置类
  * @Author Vincent Chiu
  * @Date 2020-10-23 21:42
  */

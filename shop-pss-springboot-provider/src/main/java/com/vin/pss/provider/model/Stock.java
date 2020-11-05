@@ -8,7 +8,7 @@ import lombok.Data;
 
 /**
  * biz_stock
- * @author
+ * @author Vincent Chiu
  */
 @Data
 public class Stock implements Serializable {

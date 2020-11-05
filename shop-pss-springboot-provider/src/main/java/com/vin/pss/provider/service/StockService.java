@@ -6,7 +6,7 @@ import com.vin.pss.provider.model.Stock;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 库存Service接口
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:22
  */

@@ -6,7 +6,7 @@ import com.vin.pss.provider.model.Supplier;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 供应商Service接口
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:23
  */

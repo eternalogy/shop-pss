@@ -6,7 +6,7 @@ import com.vin.pss.provider.model.Category;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 品类Service接口
  * @Author Vincent Chiu
  * @Date 2020-10-21 14:02
  */
@@ -14,8 +14,9 @@ public interface CategoryService {
 
     /**
      * 列出所有品类
-     *
-     * @return
+     * @param pageNo
+     * @param pageSize
+     * @return PageInfo<Category>
      */
     PageInfo<Category> getAllForPage(Integer pageNo, Integer pageSize);
 

@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * biz_supplier
- * @author
+ * @author Vincent Chiu
  */
 @Data
 public class Supplier implements Serializable {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description TODO
+ * @Description 商品Service接口
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:19
  */

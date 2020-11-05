@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Description 上传商品图片
+ * @Description 进货Service实现类
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:21
  */

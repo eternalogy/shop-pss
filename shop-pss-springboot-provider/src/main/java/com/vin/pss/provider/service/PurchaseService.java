@@ -9,7 +9,7 @@ import com.vin.pss.provider.model.StockModifyRecord;
 import java.util.List;
 
 /**
- * @Description TODO
+ * @Description 进货Service接口
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:21
  */
