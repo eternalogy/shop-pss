@@ -8,14 +8,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>shop-pss-springboot-common</artifactId>
     <properties>
         <spring-boot.version>2.3.3.RELEASE</spring-boot.version>
         <spring-boot-starter.version>2.3.3.RELEASE</spring-boot-starter.version>
         <logback.version>1.2.3</logback.version>
         <lombok.version>1.18.12</lombok.version>
-
         <hutool-all.version>5.3.10</hutool-all.version>
         <dubbo-spring-boot-starter.version>2.7.8</dubbo-spring-boot-starter.version>
         <dubbo-dependencies-zookeeper.version>2.7.8</dubbo-dependencies-zookeeper.version>
@@ -106,5 +104,4 @@
             </exclusions>
         </dependency>
     </dependencies>
-
 </project>

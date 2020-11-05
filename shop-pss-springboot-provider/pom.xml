@@ -8,7 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>shop-pss-springboot-provider</artifactId>
     <properties>
         <spring-boot-starter-jdbc.version>2.3.2.RELEASE</spring-boot-starter-jdbc.version>
@@ -90,5 +89,4 @@
             </exclusions>
         </dependency>
     </dependencies>
-
 </project>
