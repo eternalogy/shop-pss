@@ -2,6 +2,8 @@ package com.vin.pss.consumer.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
+import com.vin.pss.consumer.response.ResponseEnum;
+import com.vin.pss.consumer.response.ResponseResult;
 import com.vin.pss.provider.model.Supplier;
 import com.vin.pss.provider.service.SupplierService;
 import io.swagger.annotations.Api;
@@ -29,8 +31,9 @@ public class SupplierController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示条数")
     })
     @GetMapping("")
-    public PageInfo<Supplier> getAllForPage(Integer pageNo, Integer pageSize) {
-        return supplierService.getAll(pageNo, pageSize);
+    public ResponseResult<PageInfo<Supplier>> getAllForPage(Integer pageNo, Integer pageSize) {
+        PageInfo<Supplier> suppliers = supplierService.getAll(pageNo, pageSize);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, suppliers);
     }
 
     @ApiOperation(("根据供应商名称模糊查询供应商"))
@@ -40,8 +43,9 @@ public class SupplierController {
             @ApiImplicitParam(name = "pageSize", value = "每页显示条数")
     })
     @GetMapping("search")
-    public PageInfo<Supplier> getSuppliersBySupplierNameForPage(String supplierName, Integer pageNo, Integer pageSize) {
-        return supplierService.getSuppliersBySupplierName(supplierName, pageNo, pageSize);
+    public ResponseResult<PageInfo<Supplier>> getSuppliersBySupplierNameForPage(String supplierName, Integer pageNo, Integer pageSize) {
+        PageInfo<Supplier> suppliers = supplierService.getSuppliersBySupplierName(supplierName, pageNo, pageSize);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, suppliers);
     }
 
     @ApiOperation(("添加供应商"))
@@ -52,13 +56,14 @@ public class SupplierController {
             @ApiImplicitParam(name = "tel", value = "供应商电话")
     })
     @PostMapping("")
-    public Integer addSupplier(String supplierName, String address, String contactsName, String tel) {
+    public ResponseResult<Integer> addSupplier(String supplierName, String address, String contactsName, String tel) {
         Supplier supplier = new Supplier();
         supplier.setSupplierName(supplierName);
         supplier.setAddress(address);
         supplier.setContactsName(contactsName);
         supplier.setTel(tel);
-        return supplierService.addSupplier(supplier);
+        Integer row = supplierService.addSupplier(supplier);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
     @ApiOperation(("删除供应商"))
