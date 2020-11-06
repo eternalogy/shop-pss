@@ -1,9 +1,10 @@
 package com.vin.pss.provider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageInfo;
 import com.vin.pss.provider.model.User;
 import com.vin.pss.provider.service.UserService;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ import java.util.List;
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:26
  */
+@DubboService
 @Service
-@org.springframework.stereotype.Service
 public class UserServiceImpl implements UserService {
     @Override
     public PageInfo<User> getAll(Integer pageNO, Integer pageSize) {

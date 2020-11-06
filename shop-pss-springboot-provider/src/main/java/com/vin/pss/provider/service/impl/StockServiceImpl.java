@@ -1,12 +1,13 @@
 package com.vin.pss.provider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.vin.pss.provider.dao.StockDao;
 import com.vin.pss.provider.model.Stock;
 import com.vin.pss.provider.service.StockService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:22
  */
+@DubboService
 @Service
-@org.springframework.stereotype.Service
 public class StockServiceImpl implements StockService {
     @Override
     public PageInfo<Stock> getAll(Integer pageNo, Integer pageSize) {

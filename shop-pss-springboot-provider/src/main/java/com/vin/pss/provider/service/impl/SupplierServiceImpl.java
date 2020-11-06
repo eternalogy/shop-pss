@@ -1,12 +1,13 @@
 package com.vin.pss.provider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.vin.pss.provider.dao.SupplierDao;
 import com.vin.pss.provider.model.Supplier;
 import com.vin.pss.provider.service.SupplierService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * @Author Vincent Chiu
  * @Date 2020-10-21 15:23
  */
+@DubboService
 @Service
-@org.springframework.stereotype.Service
 public class SupplierServiceImpl implements SupplierService {
     @Override
     public PageInfo<Supplier> getAll(Integer pageNo, Integer pageSize) {

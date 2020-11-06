@@ -1,12 +1,13 @@
 package com.vin.pss.provider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.vin.pss.provider.dao.StockModifyRecordDao;
 import com.vin.pss.provider.model.StockModifyRecord;
 import com.vin.pss.provider.service.StockModifyRecordService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
  * @Author Vincent Chiu
  * @Date 2020-10-21 16:12
  */
+@DubboService
 @Service
-@org.springframework.stereotype.Service
 public class StockModifyRecordServiceImpl implements StockModifyRecordService {
     @Override
     public PageInfo<StockModifyRecord> getAll(Integer pageNo, Integer pageSize) {
