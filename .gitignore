@@ -1,3 +1,4 @@
 /.idea/
 */target/**
-*/src/main/resources/*-prod.yaml
+shop-pss-springboot-consumer/src/main/resources/application-prod.yaml
+shop-pss-springboot-provider/src/main/resources/application-prod.yaml
