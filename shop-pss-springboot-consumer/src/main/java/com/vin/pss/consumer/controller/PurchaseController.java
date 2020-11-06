@@ -82,12 +82,12 @@ public class PurchaseController {
             String supplierId,
             String categoryId) {
         Product product = new Product();
+        product.setBarCode(barCode);
         product.setCategoryId(Integer.parseInt(categoryId));
         product.setSupplierId(Integer.parseInt(supplierId));
         product.setProductName(productName);
         product.setSalePrice(new BigDecimal(salePrice));
         Purchase purchase = new Purchase();
-        purchase.setProductId(productService.getProductByBarCode(barCode).getId());
         purchase.setPurchasePrice(new BigDecimal(purchasePrice));
         purchase.setPurchaseDate(DateUtil.parseDate(purchaseDate));
         purchase.setProDate(DateUtil.parseDate(proDate));
