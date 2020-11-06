@@ -8,9 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>shop-pss-springboot-consumer</artifactId>
-
     <properties>
         <spring-boot-starter-web.version>2.3.3.RELEASE</spring-boot-starter-web.version>
         <spring-boot-starter-thymeleaf.version>2.3.4.RELEASE</spring-boot-starter-thymeleaf.version>
@@ -36,7 +34,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
