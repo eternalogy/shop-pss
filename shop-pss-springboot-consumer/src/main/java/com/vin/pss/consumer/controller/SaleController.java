@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class SaleController {
     @GetMapping("")
     public ResponseResult<PageInfo<Sale>> getAll(Integer pageNo, Integer pageSize) {
         PageInfo<Sale> sales = saleService.getAll(pageNo, pageSize);
-        return new ResponseResult<PageInfo<Sale>>(ResponseEnum.SUCCESS, sales);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, sales);
     }
     @ApiOperation("通过商品名称模糊查询销售记录")
     @ApiImplicitParams({
@@ -51,7 +52,7 @@ public class SaleController {
     @GetMapping("search")
     public ResponseResult<PageInfo<Sale>> getSalesByProductName(String productName, Integer pageNo, Integer pageSize){
         PageInfo<Sale> sales = saleService.getSalesByProductName(productName, pageNo, pageSize);
-        return new ResponseResult<PageInfo<Sale>>(ResponseEnum.SUCCESS, sales);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, sales);
     }
     @ApiOperation("执行进货操作")
     @PostMapping("")
@@ -69,8 +70,8 @@ public class SaleController {
         sale.setSaleCount(Integer.parseInt(saleCount));
         sale.setSaleAmount(new BigDecimal(salePrice).multiply(new BigDecimal(saleCount)));
         Integer row = saleService.sale(sale);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
-    @Reference
+    @DubboReference
     private SaleService saleService;
 }

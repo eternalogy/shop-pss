@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +42,7 @@ public class PurchaseController {
     @GetMapping("")
     public ResponseResult<PageInfo<Purchase>> getAll(Integer pageNo, Integer pageSize) {
         PageInfo<Purchase> purchases = purchaseService.getAll(pageNo, pageSize);
-        return new ResponseResult<PageInfo<Purchase>>(ResponseEnum.SUCCESS, purchases);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, purchases);
     }
     @ApiOperation("通过商品名称模糊查询进货记录")
     @ApiImplicitParams({
@@ -52,7 +53,7 @@ public class PurchaseController {
     @GetMapping("search")
     public ResponseResult<PageInfo<Purchase>> getPurchasesByProductName(String productName, Integer pageNo, Integer pageSize){
         PageInfo<Purchase> purchases = purchaseService.getPurchasesByProductName(productName, pageNo, pageSize);
-        return new ResponseResult<PageInfo<Purchase>>(ResponseEnum.SUCCESS, purchases);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, purchases);
     }
 
     @ApiOperation("执行进货操作")
@@ -93,11 +94,11 @@ public class PurchaseController {
         purchase.setExpDate(DateUtil.parseDate(expDate));
         purchase.setPurchaseCount(Integer.parseInt(count));
         Integer row = purchaseService.purchase(purchase, product);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
-    @Reference
+    @DubboReference
     private PurchaseService purchaseService;
-    @Reference
+    @DubboReference
     private ProductService productService;
 }

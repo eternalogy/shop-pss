@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class StockModifyRecordController {
     @GetMapping("")
     public ResponseResult<PageInfo<StockModifyRecord>> getAll(Integer pageNo, Integer pageSize) {
         PageInfo<StockModifyRecord> stocks = stockModifyRecordService.getAll(pageNo, pageSize);
-        return new ResponseResult<PageInfo<StockModifyRecord>>(ResponseEnum.SUCCESS, stocks);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, stocks);
     }
     @ApiOperation("通过商品名称模糊查询库存变更记录")
     @ApiImplicitParams({
@@ -46,8 +47,8 @@ public class StockModifyRecordController {
     @GetMapping("search")
     public ResponseResult<PageInfo<StockModifyRecord>> getSalesByProductName(String productName, Integer pageNo, Integer pageSize){
         PageInfo<StockModifyRecord> stockModifyRecordPageInfo = stockModifyRecordService.getStockModifyRecordsByProductName(productName, pageNo, pageSize);
-        return new ResponseResult<PageInfo<StockModifyRecord>>(ResponseEnum.SUCCESS, stockModifyRecordPageInfo);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, stockModifyRecordPageInfo);
     }
-    @Reference
+    @DubboReference
     private StockModifyRecordService stockModifyRecordService;
 }

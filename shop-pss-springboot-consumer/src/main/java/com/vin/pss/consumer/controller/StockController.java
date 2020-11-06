@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class StockController {
     @GetMapping("")
     public ResponseResult<PageInfo<Stock>> getAll(Integer pageNo, Integer pageSize) {
         PageInfo<Stock> stocks = stockService.getAll(pageNo, pageSize);
-        return new ResponseResult<PageInfo<Stock>>(ResponseEnum.SUCCESS, stocks);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, stocks);
     }
     @ApiOperation("通过商品名称模糊查询库存记录")
     @ApiImplicitParams({
@@ -46,8 +47,8 @@ public class StockController {
     @GetMapping("search")
     public ResponseResult<PageInfo<Stock>> getSalesByProductName(String productName, Integer pageNo, Integer pageSize){
         PageInfo<Stock> sales = stockService.getStocksByProductName(productName, pageNo, pageSize);
-        return new ResponseResult<PageInfo<Stock>>(ResponseEnum.SUCCESS, sales);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, sales);
     }
-    @Reference
+    @DubboReference
     private StockService stockService;
 }

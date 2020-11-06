@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class ProductController {
     @GetMapping("")
     public ResponseResult<PageInfo<Product>> getAllForPage(Integer pageNo, Integer pageSize) {
         PageInfo<Product> products = productService.getAll(pageNo, pageSize);
-        return new ResponseResult<PageInfo<Product>>(ResponseEnum.SUCCESS, products);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, products);
     }
 
     @ApiOperation(("根据商品名称模糊查询商品"))
@@ -48,7 +49,7 @@ public class ProductController {
     @GetMapping("search")
     public ResponseResult<PageInfo<Product>> getProductsByProductNameForPage(String productName, Integer pageNo, Integer pageSize) {
         PageInfo<Product> products = productService.getProductsByProductName(productName, pageNo, pageSize);
-        return new ResponseResult<PageInfo<Product>>(ResponseEnum.SUCCESS, products);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, products);
     }
 
 //    @ApiOperation(("添加商品"))
@@ -75,7 +76,7 @@ public class ProductController {
     @DeleteMapping("{barCode}")
     public ResponseResult<Integer> logicDeleteProduct(@PathVariable String barCode) {
         Integer row = productService.logicDeleteProductByBarCode(barCode);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
     @ApiOperation(("修改商品"))
@@ -95,9 +96,17 @@ public class ProductController {
         product.setProductName(productName);
         product.setSalePrice(BigDecimal.valueOf(Double.parseDouble(salePrice)));
         Integer row = productService.modifyProductByProductId(product);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
-
-    @Reference
+    @ApiOperation("通过条码查询商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "barCode", value = "商品条码")
+    })
+    @GetMapping("{barCode}")
+    public ResponseResult<Product> getProductByBarCode(@PathVariable String barCode){
+        Product product = productService.getProductByBarCode(barCode);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, product);
+    }
+    @DubboReference
     private ProductService productService;
 }

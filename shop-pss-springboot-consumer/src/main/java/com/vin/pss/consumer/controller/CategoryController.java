@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -54,7 +55,7 @@ public class CategoryController {
         Category category = new Category();
         category.setCategoryName(categoryName);
         Integer row = categoryService.addCategory(category);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
     @ApiOperation(("删除品类"))
@@ -62,7 +63,7 @@ public class CategoryController {
     @DeleteMapping("{id}")
     public ResponseResult<Integer> logicDeleteCategory(@PathVariable String id) {
         Integer row = categoryService.logicDeleteCategoryByCategoryId(Integer.parseInt(id));
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
 //    @ApiOperation(("根据id查询品类"))
@@ -83,9 +84,9 @@ public class CategoryController {
         category.setId(Integer.parseInt(id));
         category.setCategoryName(categoryName);
         Integer row = categoryService.modifyCategoryByCategoryId(category);
-        return new ResponseResult<Integer>(ResponseEnum.SUCCESS, row);
+        return new ResponseResult<>(ResponseEnum.SUCCESS, row);
     }
 
-    @Reference
+    @DubboReference
     CategoryService categoryService;
 }
