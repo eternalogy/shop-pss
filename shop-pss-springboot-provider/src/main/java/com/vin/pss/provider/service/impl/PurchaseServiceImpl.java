@@ -11,9 +11,11 @@ import com.vin.pss.provider.model.Purchase;
 import com.vin.pss.provider.model.Stock;
 import com.vin.pss.provider.model.StockModifyRecord;
 import com.vin.pss.provider.service.PurchaseService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -47,6 +49,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class, Error.class})
     public Integer purchase(Purchase purchase, Product product) {
         try {
             //当商品条码不存在的时候
@@ -83,8 +86,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 stock.setProductBarCode(product.getBarCode());
                 stock.setStockCount(purchase.getPurchaseCount());
                 stockDao.insert(stock);
-
-            } else if (productDao.selectProductByBarCode(product.getBarCode()) != null) {
+            } else {
                 //当根据条码到数据库查询，商品已经存在的时候，执行进货操作，只需要改库存
                 // 当商品条码对应的商品品类和输入的商品品类对应时，才允许添加！
                 if (product.getCategoryId().equals(productDao.selectProductByBarCode(product.getBarCode()).getCategoryId())) {
@@ -123,12 +125,13 @@ public class PurchaseServiceImpl implements PurchaseService {
                     newStock.setStockCount(newStockCount);
                     stockDao.updateByPrimaryKey(newStock);
                 } else {
+                    //如果商品条码和品类不对应，则报错
                     return 0;
                 }
             }
             //提交事务
         } catch (Exception e) {
-            //回滚事务
+            e.printStackTrace();
         }
         return 1;
     }
