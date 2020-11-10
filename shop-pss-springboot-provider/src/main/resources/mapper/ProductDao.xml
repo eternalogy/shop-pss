@@ -78,10 +78,10 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.vin.pss.provider.model.Product"
             useGeneratedKeys="true">
     insert into biz_product (bar_code, supplier_id, category_id,
-      product_name, sale_price, net_content, create_time,
+      product_name, sale_price, net_content, place_of_origin, storage_condition, create_time,
       update_time, deleted)
     values (#{barCode,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER},
-      #{productName,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL}, #{netContent}, now(),
+      #{productName,jdbcType=VARCHAR}, #{salePrice,jdbcType=DECIMAL}, #{netContent}, #{storageCondition}, #{placeOfOrigin}, now(),
       now(), 0)
   </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.vin.pss.provider.model.Product"

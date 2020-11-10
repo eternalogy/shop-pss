@@ -68,7 +68,10 @@ public class PurchaseController {
             @ApiImplicitParam(name = "purchaseDate", value = "商品进货日期"),
             @ApiImplicitParam(name = "proDate", value = "商品生产日期"),
             @ApiImplicitParam(name = "expDate", value = "商品过期日期"),
-            @ApiImplicitParam(name = "count", value = "进货数量")
+            @ApiImplicitParam(name = "count", value = "进货数量"),
+            @ApiImplicitParam(name = "netContent", value = "净含量"),
+            @ApiImplicitParam(name = "placeOfOrigin", value = "产地"),
+            @ApiImplicitParam(name = "storageCondition", value = "储存条件")
     })
     public ResponseResult<Integer> purchase(
             String barCode,
@@ -81,7 +84,9 @@ public class PurchaseController {
             String salePrice,
             String supplierId,
             String categoryId,
-            String netContent) {
+            String netContent,
+            String placeOfOrigin,
+            String storageCondition) {
         Product product = new Product();
         product.setBarCode(barCode);
         product.setCategoryId(Integer.parseInt(categoryId));
@@ -89,6 +94,8 @@ public class PurchaseController {
         product.setProductName(productName);
         product.setSalePrice(new BigDecimal(salePrice));
         product.setNetContent(netContent);
+        product.setPlaceOfOrigin(placeOfOrigin);
+        product.setStorageCondition(storageCondition);
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(new BigDecimal(purchasePrice));
         purchase.setPurchaseDate(DateUtil.parseDate(purchaseDate));

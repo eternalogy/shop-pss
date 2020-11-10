@@ -52,25 +52,6 @@ public class ProductController {
         return new ResponseResult<>(ResponseEnum.SUCCESS, products);
     }
 
-//    @ApiOperation(("添加商品"))
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "barCode", value = "商品条码"),
-//            @ApiImplicitParam(name = "supplierId", value = "供应商编号"),
-//            @ApiImplicitParam(name = "categoryId", value = "品类编号"),
-//            @ApiImplicitParam(name = "productName", value = "商品名称"),
-//            @ApiImplicitParam(name = "salePrice", value = "销售单价")
-//    })
-//    @PostMapping("")
-//    public Integer addProduct(String barCode, String supplierId, String categoryId, String productName, String salePrice) {
-//        Product product = new Product();
-//        product.setBarCode(barCode);
-//        product.setSupplierId(Integer.parseInt(supplierId));
-//        product.setCategoryId(Integer.parseInt(categoryId));
-//        product.setProductName(productName);
-//        product.setSalePrice(BigDecimal.valueOf(Double.parseDouble(salePrice)));
-//        return productService.addProduct(product);
-//    }
-
     @ApiOperation(("删除商品"))
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "商品编号")})
     @DeleteMapping("{barCode}")

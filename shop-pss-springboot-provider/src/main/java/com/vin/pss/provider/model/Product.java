@@ -25,6 +25,10 @@ public class Product implements Serializable {
     
     private String netContent;
 
+    private String placeOfOrigin;
+
+    private String storageCondition;
+
     private Date createTime;
 
     private Date updateTime;
