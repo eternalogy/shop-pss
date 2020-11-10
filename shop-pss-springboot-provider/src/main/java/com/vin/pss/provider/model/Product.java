@@ -22,6 +22,8 @@ public class Product implements Serializable {
     private String productName;
 
     private BigDecimal salePrice;
+    
+    private String netContent;
 
     private Date createTime;
 

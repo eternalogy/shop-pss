@@ -80,13 +80,15 @@ public class PurchaseController {
             String count,
             String salePrice,
             String supplierId,
-            String categoryId) {
+            String categoryId,
+            String netContent) {
         Product product = new Product();
         product.setBarCode(barCode);
         product.setCategoryId(Integer.parseInt(categoryId));
         product.setSupplierId(Integer.parseInt(supplierId));
         product.setProductName(productName);
         product.setSalePrice(new BigDecimal(salePrice));
+        product.setNetContent(netContent);
         Purchase purchase = new Purchase();
         purchase.setPurchasePrice(new BigDecimal(purchasePrice));
         purchase.setPurchaseDate(DateUtil.parseDate(purchaseDate));
